@@ -1,0 +1,293 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumeroAleatorio {
+    private int numeroSecreto;
+    private int tentativas;
+
+    public NumeroAleatorio() {
+        Random random = new Random();
+        this.numeroSecreto = random.nextInt(100) + 1; // Gera número entre 1 e 100
+        this.tentativas = 0;
+    }
+
+    public String adivinhar(int tentativa) {
+        tentativas++;
+        if (tentativa < numeroSecreto) {
+            return "Muito baixo! Tente novamente.";
+        } else if (tentativa > numeroSecreto) {
+            return "Muito alto! Tente novamente.";
+        } else {
+            return "Parabéns! Você adivinhou o número em " + tentativas + " tentativas.";
+        }
+    }
+
+    public static void main(String[] args) {
+        NumeroAleatorio jogo = new NumeroAleatorio();
+        Scanner scanner = new Scanner(System.in);
+        int tentativa;
+        String feedback;
+
+        System.out.println("Adivinhe o número entre 1 e 100:");
+
+        do {
+            tentativa = scanner.nextInt();
+            feedback = jogo.adivinhar(tentativa);
+            System.out.println(feedback);
+        } while (tentativa != jogo.numeroSecreto);
+
+        scanner.close();
+    }
+}
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Cliques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contador de Cliques</h1>
+    <button id="botao">Clique aqui!</button>
+    <p id="contador">Cliques: 0</p>
+
+    <script>
+        let contagem = 0;
+
+        document.getElementById("botao").onclick = function() {
+            contagem++;
+            document.getElementById("contador").innerText = "Cliques: " + contagem;
+        };
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Imagens</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .galeria {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .galeria img {
+            width: 150px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .galeria img:hover {
+            transform: scale(1.05);
+        }
+        .imagem-ampliada {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            border: 5px solid #fff;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .imagem-ampliada img {
+            width: 80vw;
+            height: auto;
+        }
+        .fechar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Galeria de Imagens</h1>
+    <div class="galeria">
+        <img src="https://via.placeholder.com/150" alt="Imagem 1" onclick="ampliarImagem(this.src)">
+        <img src="https://via.placeholder.com/150" alt="Imagem 2" onclick="ampliarImagem(this.src)">
+        <img src="https://via.placeholder.com/150" alt="Imagem 3" onclick="ampliarImagem(this.src)">
+        <img src="https://via.placeholder.com/150" alt="Imagem 4" onclick="ampliarImagem(this.src)">
+    </div>
+
+    <div class="imagem-ampliada" id="imagem-ampliada">
+        <span class="fechar" onclick="fecharImagem()">✖</span>
+        <img id="img-ampliada" src="" alt="Imagem Ampliada">
+    </div>
+
+    <script>
+        function ampliarImagem(src) {
+            document.getElementById("img-ampliada").src = src;
+            document.getElementById("imagem-ampliada").style.display = "block";
+        }
+
+        function fecharImagem() {
+            document.getElementById("imagem-ampliada").style.display = "none";
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .concluida {
+            color: green;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Tarefas</h1>
+    <input type="text" id="tarefa" placeholder="Adicionar tarefa...">
+    <button onclick="adicionarTarefa()">Adicionar</button>
+    
+    <ul id="lista-tarefas"></ul>
+
+    <script>
+        function adicionarTarefa() {
+            const tarefaInput = document.getElementById("tarefa");
+            const tarefaTexto = tarefaInput.value.trim();
+
+            if (tarefaTexto === "") {
+                alert("Por favor, insira uma tarefa.");
+                return;
+            }
+
+            const li = document.createElement("li");
+            li.textContent = tarefaTexto;
+
+            const concluirButton = document.createElement("button");
+            concluirButton.textContent = "Concluir";
+            concluirButton.onclick = function() {
+                li.classList.toggle("concluida");
+            };
+
+            const removerButton = document.createElement("button");
+            removerButton.textContent = "Remover";
+            removerButton.onclick = function() {
+                li.remove();
+            };
+
+            li.appendChild(concluirButton);
+            li.appendChild(removerButton);
+            document.getElementById("lista-tarefas").appendChild(li);
+            tarefaInput.value = ""; // Limpa o campo de entrada
+        }
+    </script>
+</body>
+</html>	
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moedas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Conversor de Moedas</h1>
+    <input type="number" id="valorReais" placeholder="Valor em Reais" step="0.01">
+    <select id="moeda">
+        <option value="dolar">Dólar</option>
+        <option value="euro">Euro</option>
+    </select>
+    <button onclick="converter()">Converter</button>
+
+    <h2 id="resultado"></h2>
+
+    <script>
+        const taxaDolar = 5.25; // Taxa de conversão para dólar
+        const taxaEuro = 5.70;  // Taxa de conversão para euro
+
+        function converter() {
+            const valorReais = parseFloat(document.getElementById("valorReais").value);
+            const moedaSelecionada = document.getElementById("moeda").value;
+
+            if (isNaN(valorReais) || valorReais <= 0) {
+                alert("Por favor, insira um valor válido em Reais.");
+                return;
+            }
+
+            let resultado;
+            if (moedaSelecionada === "dolar") {
+                resultado = valorReais / taxaDolar;
+                document.getElementById("resultado").innerText = `Resultado: ${resultado.toFixed(2)} USD`;
+            } else if (moedaSelecionada === "euro") {
+                resultado = valorReais / taxaEuro;
+                document.getElementById("resultado").innerText = `Resultado: ${resultado.toFixed(2)} EUR`;
+            }
+        }
+    </script>
+</body>
+</html>
+
